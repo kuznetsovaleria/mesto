@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <img src="./images/logo.svg" alt="логотип Место" class="header__logo">
+        </header>
+
+        <main class="content">
+
+            <section class="profile page__profile">
+                    <img src="./images/сousteau.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <div class="profile__info">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button" aria-label="open"></button>
+                        <p class="profile__profession">Исследователь океана</p>
+                    </div>
+                    <button class="profile__add-button"></button>
+            </section>
+
+            <section class="elements page__elements">
+                <article class="elements__card">
+                    <img src="./images/elbrus.jpg" alt="Эльбрус" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Гора Эльбрус</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+
+                <article class="elements__card">
+                    <img src="./images/winter-baikal.jpg" alt="Байкал" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Байкал</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+
+                <article class="elements__card">
+                    <img src="./images/kamchatka1.jpg" alt="Камчатка" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Камчатка</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+
+                <article class="elements__card">
+                    <img src="./images/altay.jpg" alt="Алтай" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Алтай</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+
+                <article class="elements__card">
+                    <img src="./images/nikola-lenivets.jpg" alt="Никола-Ленивец" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Никола-Ленивец</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+
+                <article class="elements__card">
+                    <img src="./images/crimea.jpg" alt="Крым" class="elements__photo">
+                    <div class="elements__group">
+                        <h2 class="elements__place">Крым</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </article>
+            </section>
+
+            <footer class="footer">
+                <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+            </footer>
+
+        </main>
+
+        <section class="popup">
+            <div class="popup__container">
+                <button class="popup__close" aria-label="close"></button>
+                <form class="popup__form">
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__name">
+                    <input type="text" name="profession" value="Исследователь океана" class="popup__profession">
+                    <button type="submit" class="popup__submit">Сохранить</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
