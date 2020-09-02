@@ -3,4 +3,7 @@
  * Flex-boxes 
  * Grid Layout 
  * Адаптивная вёрстка 
- * Создание всплывающего окна на JavaScript 
+ * Создание всплывающего окна на JavaScript  
+
+### ССылка на проект  
+[https://kuznetsovaleria.github.io/mesto/]
