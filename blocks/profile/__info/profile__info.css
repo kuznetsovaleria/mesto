@@ -1,11 +1,10 @@
 .profile__info {
-    /* max-width: 366px; */
     display: grid;
-    grid-template-columns: minmax(min-content, max-content) 24px;
-    grid-template-rows: minmax(auto, 43px) 18px;
+    grid-template-columns: minmax(min-content, max-content) 24px;  
     column-gap: 17px;
-    row-gap: 16px;
+    row-gap: 5px;
     margin-left: 30px;
+    align-items: baseline;
 }
 
 @media screen and (max-width: 768px) {

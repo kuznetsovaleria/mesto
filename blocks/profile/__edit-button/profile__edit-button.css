@@ -9,7 +9,6 @@
     padding: 0;
     background-size: contain;
     display: block;
-    align-self: end;
 }
 
 .profile__edit-button:hover {
