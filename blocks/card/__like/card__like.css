@@ -5,6 +5,7 @@
     width: 21px;
     height: 18px;
     background-image: url('../../../images/like.svg');
+    background-repeat: no-repeat;
 }
 
 .card__like:hover {
