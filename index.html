@@ -93,6 +93,24 @@
                 </form>
             </div>
         </section>
+
+        <section class="popup popup_add">
+            <div class="popup__container">
+                <button class="popup__close" aria-label="закрыть">
+                    <img src="./images/close-icon.svg" alt="Закрыть" class="popup__icon">
+                </button>
+                <form class="popup__form" name="new-place">
+                    <h3 class="popup__title">Новое место</h3> 
+                    <input type="text" name="place-name" placeholder="Название" class="popup__input popup__input_place">
+                    <input type="text" name="img-link" placeholder="Ссылка на картинку" class="popup__input popup__input_img">
+                    <button type="submit" class="popup__submit popup__submit_add">Создать</button>
+                </form>
+
+            </div>
+        </section>
+
+
+
     </div>
     <script src="scripts/index.js"></script>
 </body>
