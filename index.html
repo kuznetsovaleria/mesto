@@ -25,53 +25,6 @@
             </section>
 
             <section class="cards page__cards">
-                <article class="card">
-                    <img src="./images/elbrus.jpg" alt="Эльбрус" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Гора Эльбрус</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/winter-baikal.jpg" alt="Байкал" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Байкал</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/kamchatka1.jpg" alt="Камчатка" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Камчатка</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/altay.jpg" alt="Алтай" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Алтай</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/nikola-lenivets.jpg" alt="Никола-Ленивец" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Никола-Ленивец</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/crimea.jpg" alt="Крым" class="card__photo">
-                    <div class="card__group">
-                        <h2 class="card__place">Крым</h2>
-                        <button class="card__like" type="button"></button>
-                    </div>
-                </article>
             </section>
 
             <footer class="footer">
@@ -80,7 +33,7 @@
 
         </main>
 
-        <section class="popup">
+        <section class="popup popup_edit">
             <div class="popup__container">
                 <button class="popup__close" aria-label="закрыть">
                     <img src="./images/close-icon.svg" alt="Закрыть" class="popup__icon">
@@ -109,9 +62,17 @@
             </div>
         </section>
 
-
-
     </div>
+    
+    <template class="card-template">
+        <article class="card">
+            <img src="" alt="" class="card__photo">
+            <div class="card__group">
+                <h2 class="card__place"></h2>
+                <button class="card__like" type="button"></button>
+            </div>
+        </article>
+    </template>
     <script src="scripts/index.js"></script>
 </body>
 </html>
