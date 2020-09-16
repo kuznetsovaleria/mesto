@@ -61,17 +61,6 @@ function renderCard({name, link}) {
 
 render();
 
-// function renderCard({name, link}) {
-    
-//     const newCard = cardTemplate.content.cloneNode(true);
-    
-//     newCard.querySelector('.card__place').innerText = name;
-//     newCard.querySelector('.card__photo').alt = name;
-//     newCard.querySelector('.card__photo').src = link;
-//     cards.appendChild(newCard); 
-// }
-
-
 
 function openPopup (popup) {
     popup.classList.add('popup_opened');
@@ -81,7 +70,7 @@ function closePopup (popup) {
     popup.classList.remove('popup_opened');
 }
 
-function copyInput () {
+function copyEditInput () {
     nameInput.value = nameProfile.textContent;
     professionInput.value = professionProfile.textContent;
 }
@@ -94,27 +83,32 @@ function editFormSubmitHandler (evt) {
     closePopup(editPopup);
 }
 
+function addNewCardHandler (evt) {
+    evt.preventDefault();
+    const placeValue = placeInput.value;
+    const linkValue = linkInput.value;
+    const newCard = {
+        name: placeValue,
+        link: linkValue
+     }
+ closePopup(addPopup);
+ renderCard(newCard);
+ };
 
-editPopupOpenButton.addEventListener('click', () => {copyInput(), openPopup(editPopup)});
+
+editPopupOpenButton.addEventListener('click', () => {copyEditInput(), openPopup(editPopup)});
 
 addPopupOpenButton.addEventListener('click', () => {openPopup(addPopup)});
 
 editPopupCloseButton.addEventListener('click', () => {closePopup(editPopup)});
+
 addPopupCloseButton.addEventListener('click', () => {closePopup(addPopup)});
 
 submitEditForm.addEventListener('submit', editFormSubmitHandler);
 
-addPopupSaveButton.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const placeValue = placeInput.value;
-    const linkValue = linkInput.value;
-    const newCard = {
-    name: placeValue,
-    link: linkValue
-    }
-closePopup(addPopup);
-renderCard(newCard);
-});
+addPopupSaveButton.addEventListener('submit', addNewCardHandler);
+
+
 
 
 
