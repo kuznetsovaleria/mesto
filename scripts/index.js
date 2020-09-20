@@ -60,7 +60,6 @@ function renderCard({name, link}) {
 
 render();
 
-
 function openPopup (popup) {
     popup.classList.add('popup_opened');
 }
@@ -75,38 +74,42 @@ function copyEditInput () {
 }
 
 
-function editFormSubmitHandler (evt) {
+function editFormSubmit (evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     professionProfile.textContent = professionInput.value;
     closePopup(editPopup);
 }
 
-function addNewCardHandler (evt) {
+function addNewCard (evt) {
     evt.preventDefault();
     placeValue = placeInput.value;
     linkValue = linkInput.value;
     newCard = {
         name: placeValue,
         link: linkValue
-     }
+    }
  closePopup(addPopup);
  renderCard(newCard);
+ addListeners();
  };
 
- const likeButton = document.querySelectorAll('.card__like');
- likeButton.forEach(like => like.addEventListener('click', function(){
-    like.classList.toggle('card__like_active');
-  }))
 
 const removeCard = (event) => {
     event.preventDefault();
     event.target.closest('.card').remove();
 }
 
+
 const addListeners = () => {
     const deleteButton = document.querySelectorAll('.card__delete');
     deleteButton.forEach(button => button.addEventListener('click', removeCard));
+
+    const likeButton = document.querySelectorAll('.card__like');
+    likeButton.forEach(like => like.addEventListener('click', function(){
+    like.classList.toggle('card__like_active');
+     }))
+
 }
 
 // render();
@@ -121,9 +124,9 @@ editPopupCloseButton.addEventListener('click', () => {closePopup(editPopup)});
 
 addPopupCloseButton.addEventListener('click', () => {closePopup(addPopup)});
 
-submitEditForm.addEventListener('submit', editFormSubmitHandler);
+submitEditForm.addEventListener('submit', editFormSubmit);
 
-addPopupSaveButton.addEventListener('submit', addNewCardHandler);
+addPopupSaveButton.addEventListener('submit', addNewCard);
 
 
 
