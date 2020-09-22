@@ -13,3 +13,7 @@
     transition: opacity .5s;
     cursor: url('../../../images/cursor.png'), pointer;
 } 
+
+.card__like:focus {
+    outline: none;
+}
