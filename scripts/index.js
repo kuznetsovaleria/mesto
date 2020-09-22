@@ -13,9 +13,16 @@ const addPopupOpenButton = document.querySelector('.profile__add-button');
 const addPopupCloseButton = addPopup.querySelector('.popup__close');
 const addPopupSaveButton = document.querySelector('.popup__form_add')
 
-// const photoPopup = document.querySelector('.popup-photo');
-// const openPhotoPopup = document.querySelector('.card__photo');
-// const closePhotoPopup = document.querySelector('.popup-photo__close');
+const cardTemplate = document.querySelector('.card-template');
+const cards = document.querySelector('.cards');
+const placeInput = document.querySelector('.popup__input_place');
+const linkInput = document.querySelector('.popup__input_link');
+
+const photoPopup = document.querySelector('.popup-photo');
+const photoPopupImage = document.querySelector('.popup-photo__img');
+const photoPopupCloseButton = document.querySelector('.popup-photo__close');
+const photoPopupCaption = document.querySelector('.popup-photo__caption');
+
 
 const initialCards = [
     {
@@ -44,30 +51,10 @@ const initialCards = [
     }
 ];
 
-const cardTemplate = document.querySelector('.card-template');
-const cards = document.querySelector('.cards');
-const placeInput = document.querySelector('.popup__input_place');
-const linkInput = document.querySelector('.popup__input_link');
-
- const photoPopup = document.querySelector('.popup-photo');
- const photoPopupImage = document.querySelector('.popup-photo__img');
- const photoPopupCloseButton = document.querySelector('.popup-photo__close');
- const photoPopupCaption = document.querySelector('.popup-photo__caption');
-
 
 function render () {
     initialCards.forEach(renderCard);
 }
-
-// function renderCard({name, link}) {
-//     const сard = cardTemplate.content.cloneNode(true);
-    
-//     сard.querySelector('.card__place').innerText = name;
-//     сard.querySelector('.card__photo').alt = name;
-//     сard.querySelector('.card__photo').src = link;
-//     cards.prepend(card);
-//     // addListeners(card);
-// }
 
 function renderCard({name, link}) {
     
@@ -76,12 +63,24 @@ function renderCard({name, link}) {
     newCard.querySelector('.card__place').innerText = name;
     newCard.querySelector('.card__photo').alt = name;
     newCard.querySelector('.card__photo').src = link;
-    cards.prepend(newCard);
-    // addListeners(newCard);
-
+    cards.prepend(newCard);   
 }
 
 render();
+
+function addNewCard (evt) {
+    evt.preventDefault();
+    placeValue = placeInput.value;
+    linkValue = linkInput.value;
+    newCard = {
+        name: placeValue,
+        link: linkValue
+    }
+
+    closePopup(addPopup);
+    renderCard(newCard);
+    addListeners();
+}
 
 function openPopup (popup) {
     popup.classList.add('popup_opened');
@@ -96,27 +95,12 @@ function copyEditInput () {
     professionInput.value = professionProfile.textContent;
 }
 
-
 function editFormSubmit (evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     professionProfile.textContent = professionInput.value;
     closePopup(editPopup);
 }
-
-
-function addNewCard (evt) {
-    evt.preventDefault();
-    placeValue = placeInput.value;
-    linkValue = linkInput.value;
-    newCard = {
-        name: placeValue,
-        link: linkValue
-    }
- closePopup(addPopup);
- renderCard(newCard);
- addListeners();
- };
 
 
 const removeCard = (event) => {
@@ -131,31 +115,6 @@ const photoPopupOpen = (event) => {
     openPopup(photoPopup);
 }
 
-// const likeCard = (event) => {
-//     event.target.classList.toggle('card__like_active');
-// }
-
-// const addListeners = (newCard) => {
-//     const deleteButton = newCard.querySelector('.card__delete');
-//     deleteButton.addEventListener('click', removeCard);
-
-//     const likeButton = newCard.querySelector('.card__like');
-//     likeButton.addEventListener('click', likeCard);
-
-//     const openPhoto = newCard.querySelector('.card__photo');
-//     openPhoto.addEventListener('click', photoPopupOpen);
-// }
-
-//     const likeButton = document.querySelectorAll('.card__like');
-//     likeButton.forEach(like => like.addEventListener('click', function(){
-//     like.classList.toggle('card__like_active');
-//     }))
-
-//     const openPhoto = document.querySelector('.card__photo');
-//     openPhoto.addEventListener('click', photoPopupOpen);
-
-
-
 
 const addListeners = () => {
     const deleteButton = document.querySelectorAll('.card__delete');
@@ -166,9 +125,9 @@ const addListeners = () => {
     like.classList.toggle('card__like_active');
     }))
 
-    const openPhoto = document.querySelector('.card__photo');
-    openPhoto.addEventListener('click', photoPopupOpen);
-
+    
+    const openPhoto = document.querySelectorAll('.card__photo');
+    openPhoto.forEach(item => item.addEventListener('click', photoPopupOpen));
 }
 
 
