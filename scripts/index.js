@@ -58,6 +58,18 @@ function closePopup (popup) {
     popup.classList.remove('popup_opened');
 }
 
+function closePopupOverlay (popup) {
+    popup.addEventListener('click', function (evt) {
+        if (evt.target.contains(popup)) {
+            closePopup(popup);
+        };
+    });
+}
+
+closePopupOverlay(editPopup);
+closePopupOverlay(addPopup);
+closePopupOverlay(photoPopup);
+
 function copyEditInput () {
     nameInput.value = nameProfile.textContent;
     professionInput.value = professionProfile.textContent;
