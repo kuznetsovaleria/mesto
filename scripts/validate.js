@@ -1,6 +1,6 @@
 const editForm = document.querySelector('.popup__form_edit');
 const inputsList = document.querySelectorAll('.popup__input');
-const submitButton = document.querySelector('.popup__submit')
+const submitButton = document.querySelector('.popup__submit');
 // const nameInputForm = editForm.querySelector('.popup__input_name');
 // const professionInputForm = editForm.querySelector('.popup__input_profession');
 
@@ -46,10 +46,34 @@ function setButtonState(button, isButtonActive) {
     }
 }
 
-inputsList.forEach((input) => {
-    input.addEventListener('input', () => {
-        isFormValid(editForm, input);
-        setButtonState(submitButton, editForm.checkValidity());
+
+
+function setEventListeners(form) {
+    const inputsList = form.querySelectorAll('.popup__input');
+    const submitButton = form.querySelector('.popup__submit');
+
+    inputsList.forEach((input) => {
+        input.addEventListener('input', () => {
+            isFormValid(form, input);
+            setButtonState(submitButton, form.checkValidity());
+        });
     });
-});
+};
+
+function enableValidation() {
+    const forms = document.querySelectorAll('.popup__form');
+    forms.forEach((form) => {
+        setEventListeners(form);
+
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+
+        const submitButton = form.querySelector('.popup__submit');
+        setButtonState(submitButton, form.checkValidity());
+
+    });
+};
+
+enableValidation();
 
