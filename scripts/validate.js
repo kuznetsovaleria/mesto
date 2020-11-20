@@ -10,70 +10,79 @@ editForm.addEventListener('submit', (evt) => {
 
 // ПОКАЗ ОШИБКИ В ФОРМЕ
 
-function showError(form, input) {
+function showError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
      error.textContent = input.validationMessage;
-     input.classList.add('popup__input_type_error');
+     input.classList.add(config.inputErrorClass);
 };
 
 // СКРЫТИЕ ОШИБКИ В ФОРМЕ
 
-function hideError(form, input) {
+function hideError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = '';
-    input.classList.remove('popup__input_type_error');
+    input.classList.remove(config.inputErrorClass);
 };
 
 // ПРОВЕРКА ФОРМЫ НА ВАЛИДНОСТЬ
 
-function isFormValid(form, input) {
+function isFormValid(form, input, config) {
     if (!input.validity.valid) {
-        showError(form, input);
+        showError(form, input, config);
     } else {
-        hideError(form, input)
+        hideError(form, input, config)
     }
 };
 
 // АКТИВНА ЛИ КНОПКА
 
-function setButtonState(button, isButtonActive) {
+function setButtonState(button, isButtonActive, config) {
     if (isButtonActive) {
-        button.classList.remove('popup__submit_inactive');
+        button.classList.remove(config.inactiveButtonClass);
         button.disabled = false;
     } else {
-        button.classList.add('popup__submit_inactive');
+        button.classList.add(config.inactiveButtonClass);
         button.disabled = true;
     }
 }
 
 
-
-function setEventListeners(form) {
-    const inputsList = form.querySelectorAll('.popup__input');
-    const submitButton = form.querySelector('.popup__submit');
+function setEventListeners(form, config) {
+    const inputsList = form.querySelectorAll(config.inputSelector);
+    const submitButton = form.querySelector(config.submitButtonSelector);
 
     inputsList.forEach((input) => {
         input.addEventListener('input', () => {
-            isFormValid(form, input);
-            setButtonState(submitButton, form.checkValidity());
+            isFormValid(form, input, config);
+            setButtonState(submitButton, form.checkValidity(), config);
         });
     });
 };
 
-function enableValidation() {
-    const forms = document.querySelectorAll('.popup__form');
+// ВАЛИДАЦИЯ ВСЕХ ФОРМ
+
+function enableValidation(config) {
+    const forms = document.querySelectorAll(config.formSelector);
     forms.forEach((form) => {
-        setEventListeners(form);
+        setEventListeners(form, config);
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
 
-        const submitButton = form.querySelector('.popup__submit');
-        setButtonState(submitButton, form.checkValidity());
+        const submitButton = form.querySelector(config.submitButtonSelector);
+        setButtonState(submitButton, form.checkValidity(), config);
 
     });
 };
 
-enableValidation();
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit',
+    inputErrorClass: 'popup__input_type_error',
+    inactiveButtonClass: 'popup__submit_inactive',
+}
+
+enableValidation(validationConfig);
 
