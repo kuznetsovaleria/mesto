@@ -28,8 +28,6 @@ const deleteButton = document.querySelectorAll('.card__delete');
 const likeButton = document.querySelectorAll('.card__like');
 const openPhoto = document.querySelectorAll('.card__photo');
 
-
-
 function render () {
     initialCards.forEach(({name, link}) => {
         const card = createCard({name, link});
@@ -55,11 +53,20 @@ const createCard = ({name, link}) => {
 
 function openPopup (popup) {
     popup.classList.add('popup_opened');
-}
+    document.addEventListener('keydown', closePopupEsc);
+};
 
 function closePopup (popup) {
     popup.classList.remove('popup_opened');
-}
+    document.removeEventListener('keydown', closePopupEsc);
+};
+
+function closePopupEsc (evt) {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (evt.keyCode === 27) {
+        closePopup(openedPopup);
+    };
+};
 
 function closePopupOverlay (popup) {
     popup.addEventListener('mousedown', function (evt) {
@@ -67,7 +74,7 @@ function closePopupOverlay (popup) {
             closePopup(popup);
         };
     });
-}
+};
 
 closePopupOverlay(editPopup);
 closePopupOverlay(addPopup);
