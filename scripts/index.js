@@ -24,9 +24,6 @@ const photoPopupImage = document.querySelector('.popup-photo__img');
 const photoPopupCloseButton = document.querySelector('.popup-photo__close');
 const photoPopupCaption = document.querySelector('.popup-photo__caption');
 
-const deleteButton = document.querySelectorAll('.card__delete');
-const likeButton = document.querySelectorAll('.card__like');
-const openPhoto = document.querySelectorAll('.card__photo');
 
 function render () {
     initialCards.forEach(({name, link}) => {
@@ -62,8 +59,9 @@ function closePopup (popup) {
 };
 
 function closePopupEsc (evt) {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (evt.keyCode === 27) {
+    const esc = 27;
+    if (evt.keyCode === esc) {
+        const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     };
 };
@@ -152,9 +150,6 @@ addPopupSaveButton.addEventListener('submit', submitAddForm);
 
 photoPopupCloseButton.addEventListener('click', () => {closePopup(photoPopup)});
 
-editForm.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-});
 
 
 

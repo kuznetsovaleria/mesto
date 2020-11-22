@@ -1,12 +1,4 @@
-const editForm = document.querySelector('.popup__form_edit');
-const inputsList = document.querySelectorAll('.popup__input');
-const submitButton = document.querySelector('.popup__submit');
-// const nameInputForm = editForm.querySelector('.popup__input_name');
-// const professionInputForm = editForm.querySelector('.popup__input_profession');
-
-editForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-});
+// const editForm = document.querySelector('.popup__form_edit');
 
 // ПОКАЗ ОШИБКИ В ФОРМЕ
 
