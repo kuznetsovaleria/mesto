@@ -30,28 +30,28 @@
 
         this._setEventListeners();
         return this._element;
-    }
+    };
+
 
     _deleteCard() {
         this._element.remove();
-    }
+    };
 
     _toggleLikeCard() {
         this._element.querySelector('.card__like').classList.toggle('card__like_active');
-    }
+    };
 
     _setEventListeners() {
 
         this._element.querySelector('.card__delete').addEventListener('click', () => {
             this._deleteCard();
-        })
+        });
 
         this._element.querySelector('.card__like').addEventListener('click', () => {
             this._toggleLikeCard();
-        })
+        });
 
-        this._element.querySelector('.card__photo').addEventListener('click', openPhotoPopup)
-    }
-
-}
+        this._element.querySelector('.card__photo').addEventListener('click', openPhotoPopup);
+    };
+};
 
