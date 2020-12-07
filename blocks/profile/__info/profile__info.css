@@ -1,6 +1,6 @@
 .profile__info {
     display: grid;
-    grid-template-columns: minmax(min-content, max-content) 24px;  
+    grid-template-columns: minmax(min-content, max-content) 24px;
     column-gap: 17px;
     row-gap: 5px;
     margin-left: 30px;
