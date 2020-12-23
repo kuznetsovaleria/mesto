@@ -1,10 +1,10 @@
- import {openPhotoPopup} from './index.js'
  
  export class Card {
-    constructor (data, templateSelector) {
+    constructor ( data, templateSelector, handleCardClick ) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     };
 
     _getTemplate () {
@@ -41,6 +41,10 @@
         this._element.querySelector('.card__like').classList.toggle('card__like_active');
     };
 
+    _handleCardClick() {
+        this._handleCardClick(this._name, this._link);
+    }
+
     _setEventListeners() {
 
         this._element.querySelector('.card__delete').addEventListener('click', () => {
@@ -51,7 +55,10 @@
             this._toggleLikeCard();
         });
 
-        this._element.querySelector('.card__photo').addEventListener('click', openPhotoPopup);
+        this._element.querySelector('.card__photo').addEventListener('click', () => {
+            this._handleCardClick()
+        })
+
     };
 };
 
