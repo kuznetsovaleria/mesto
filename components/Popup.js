@@ -1,6 +1,6 @@
 import { ESC_CODE } from '../utils/constants.js';
 
-export  class Popup {
+export class Popup {
     constructor(popupSelector) {
         this._popupSelector = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);

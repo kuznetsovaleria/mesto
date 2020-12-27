@@ -7,12 +7,13 @@ export class Section {
 
     renderItems() {
         this._renderedItems.forEach(item => this._renderer(item));
-            // const card = new Card ({name, link}, '.card-template', () => openPhotoPopup.openPhoto(name, link));
-            // const cardElement = card.generateCard()
-            // this.setItem(cardElement)
     }
 
-    setItem(element) {
+    appendItem(element) {
         this._container.append(element);
+    }
+
+    prependItem(element) {
+        this._container.prepend(element);
     }
 }
