@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body>
     <div class="page">
         <header class="header">
-            <img src="./images/logo.svg" alt="логотип Место" class="header__logo">
+            <img src="<%=require('./images/logo.svg')%>" alt="логотип Место" class="header__logo">
         </header>
 
         <main class="content">
 
             <section class="profile page__profile">
-                    <img src="./images/сousteau.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <img src="<%=require('./images/сousteau.jpg')%>"" alt="Жак-Ив Кусто" class="profile__avatar">
                     <div class="profile__info">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
                         <button class="profile__edit-button" aria-label="Открыть"></button>
@@ -36,7 +35,7 @@
         <section class="popup popup_edit">
             <div class="popup__container">
                 <button class="popup__close" aria-label="Закрыть">
-                    <img src="./images/close-icon.svg" alt="Закрыть" class="popup__icon">
+                    <img src="<%=require('./images/close-icon.svg')%>"" alt="Закрыть" class="popup__icon">
                 </button>
                 <form class="popup__form popup__form_edit" name="edit-form" novalidate>
                     <h3 class="popup__title">Редактировать профиль</h3>
@@ -66,7 +65,7 @@
         <section class="popup popup_add">
             <div class="popup__container">
                 <button class="popup__close" aria-label="Закрыть">
-                    <img src="./images/close-icon.svg" alt="Закрыть" class="popup__icon">
+                    <img src="<%=require('./images/close-icon.svg')%>"" alt="Закрыть" class="popup__icon">
                 </button>
                 <form class="popup__form popup__form_add" name="new-place">
                     <h3 class="popup__title">Новое место</h3> 
@@ -97,7 +96,7 @@
         <section class="popup popup-photo">
             <div class="popup-photo__container">
                 <button class="popup-photo__close popup__close" aria-label="Закрыть">
-                    <img src="./images/close-icon.svg" alt="Закрыть" class="popup__icon">
+                    <img src="<%=require('./images/close-icon.svg')%>"" alt="Закрыть" class="popup__icon">
                 </button>
                     <img src="#" alt="#" class="popup-photo__img">
                     <p class="popup-photo__caption"></p>
@@ -116,6 +115,5 @@
             </div>
         </article>
     </template>
-    <script type="module" src="./pages/index.js"></script>
 </body>
 </html>

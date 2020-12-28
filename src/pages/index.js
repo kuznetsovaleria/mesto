@@ -1,4 +1,5 @@
-import {initialCards} from '../utils/cards.js'
+import './index.css';
+import {initialCards} from '../utils/constants.js';
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import { PopupWithPhoto } from '../components/PopupWithPhoto.js';
