@@ -25,6 +25,7 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._popupSelector.querySelector('.popup__form').reset();
+        this._formSelector = this._popupSelector.querySelector('.popup__form');
+        this._formSelector.reset();
     };
 };

@@ -1,28 +1,31 @@
 import './index.css';
-import {initialCards} from '../utils/constants.js';
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import { PopupWithPhoto } from '../components/PopupWithPhoto.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { editPopup, editPopupOpenButton, editPopupForm,
-    nameInput, professionInput, addPopup, addPopupOpenButton, 
-    addPopupSaveButton, photoPopup} from '../utils/constants.js';
+import { initialCards, editPopup, editPopupOpenButton, editPopupForm,
+    nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
+    addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector}
+    from '../utils/constants.js';
+
+function createCard(item) {
+    const card = new Card(item, cardTemplateSelector, () => openPhotoPopup.open(item));
+    return card.generateCard();
+}
 
 const cardList = new Section({
     data: initialCards,
     renderer: (item) => {
-        const card = new Card(item, '.card-template', () => openPhotoPopup.openPhoto(item));
-        const cardElement = card.generateCard();
+        const cardElement = createCard(item);
         cardList.appendItem(cardElement);
     }
 }, '.cards');
 
 cardList.renderItems();
 
-
-const userProfile = new UserInfo('.profile__name', '.profile__profession');
+const userProfile = new UserInfo(nameElementSelector, professionElementSelector);
 
 const editFormPopup = new PopupWithForm({
     popupSelector: editPopup,
@@ -45,14 +48,12 @@ editPopupOpenButton.addEventListener('click', () => {
 
 const addCardPopup = new PopupWithForm({
     popupSelector: addPopup,
-    handleFormSubmit: (cardData) => {
-        const addCard = new Card({name: cardData['place-name'], link: cardData['img-link']}, '.card-template', () => 
-        openPhotoPopup.openPhoto({name: cardData['place-name'], link: cardData['img-link']}));
-        const cardElement = addCard.generateCard();
+    handleFormSubmit:(cardData) => {
+        const cardElement = createCard({name: cardData['place-name'], link: cardData['img-link']});
         cardList.prependItem(cardElement);
         addCardPopup.close();
     }
-});
+})
 
 addCardPopup.setEventListeners();
 addPopupOpenButton.addEventListener('click', () => {
@@ -61,13 +62,6 @@ addPopupOpenButton.addEventListener('click', () => {
 
 const openPhotoPopup = new PopupWithPhoto(photoPopup);
 openPhotoPopup.setEventListeners();
-
-const validationConfig = {
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inputErrorClass: 'popup__input_type_error',
-    inactiveButtonClass: 'popup__submit_inactive',
-}
 
 const editFormValidator = new FormValidator(validationConfig, editPopupForm);
 editFormValidator.enableValidation();

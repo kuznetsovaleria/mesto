@@ -1,4 +1,4 @@
- 
+
  export class Card {
     constructor ( data, templateSelector, handleCardClick ) {
         this._name = data.name;
@@ -22,11 +22,12 @@
         this._element = this._getTemplate();
 
         const cardPlace = this._element.querySelector('.card__place');
-        const cardPhoto = this._element.querySelector('.card__photo');
+        this._photo = this._element.querySelector('.card__photo');
         
         cardPlace.textContent = this._name;
-        cardPhoto.src = this._link;
-        cardPhoto.alt = this._name;
+        this._photo.src = this._link;
+        this._photo.alt = this._name;
+
 
         this._setEventListeners();
         return this._element;
@@ -55,7 +56,7 @@
             this._toggleLikeCard();
         });
 
-        this._element.querySelector('.card__photo').addEventListener('click', () => {
+        this._photo.addEventListener('click', () => {
             this._handleCardClick()
         })
 
