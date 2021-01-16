@@ -1,4 +1,3 @@
-// import { profileName, profileProfession } from "../utils/constants";
 
 export class UserInfo {
     constructor(profileName, profileProfession) {
@@ -13,9 +12,9 @@ export class UserInfo {
         }
     };
 
-    setUserInfo({name, profession}) {
+    setUserInfo({name, about}) {
         this._name.textContent = name;
-        this._profession.textContent = profession;
+        this._profession.textContent = about;
     }
 
 };

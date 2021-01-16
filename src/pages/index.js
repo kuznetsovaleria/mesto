@@ -5,10 +5,10 @@ import { PopupWithPhoto } from '../components/PopupWithPhoto.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { initialCards, editPopup, editPopupOpenButton, editPopupForm,
+import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
-    cards } from '../utils/constants.js';
+    cards, submitProfileButton } from '../utils/constants.js';
 import { Api } from '../components/Api';
 
     const api = new Api({
@@ -23,7 +23,7 @@ function createCard(item) {
     return card.generateCard();
 }
 
-//ЗАГРУЗКА МАССИВА КАРТОЧЕК
+//МАССИВ КАРТОЧЕК
 const cardList = new Section({
     renderer: (item) => {
         const cardElement = createCard(item);
@@ -31,6 +31,7 @@ const cardList = new Section({
     }
 }, cards);
 
+//ОТОБРАЖЕНИЕ ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ И ЗАГРУЗКА КАРТОЧЕК С СЕРВЕРА
 Promise.all([
     api.getUserData(),
     api.getInitialCards()
@@ -40,35 +41,40 @@ Promise.all([
         const initialCards = values[1];
         userProfile.setUserInfo(userValues);
         cardList.renderItems(initialCards);
-        // userProfile.setUserInfo(values[0]);
-        // cardList.renderItems(values[1])
     })
     .catch((err) => {
         console.log(err)
     });
 
-// const cardList = new Section({
-//     data: initialCards,
-//     renderer: (item) => {
-//         const cardElement = createCard(item);
-//         cardList.appendItem(cardElement);
-//     }
-// }, cards);
-
-// cardList.renderItems();
-
-
 // СОЗДАНИЕ ПРОФИЛЯ
 const userProfile = new UserInfo(nameElementSelector, professionElementSelector);
 
 // РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
+// const editFormPopup = new PopupWithForm({
+//     popupSelector: editPopup,
+//     handleFormSubmit: (userData) => {
+//         userProfile.setUserInfo({name: userData['edit-name'], profession: userData['edit-profession']});
+//         editFormPopup.close();
+//     }
+// });
+
 const editFormPopup = new PopupWithForm({
     popupSelector: editPopup,
     handleFormSubmit: (userData) => {
-        userProfile.setUserInfo({name: userData['edit-name'], profession: userData['edit-profession']});
-        editFormPopup.close();
+        submitProfileButton.textContent = 'Сохранение...'
+        api.editUserInfo({name: userData['edit-name'], about: userData['edit-profession']})
+        .then((res) => {
+            userProfile.setUserInfo(res);
+            editFormPopup.close()
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .finally(() => {
+            submitProfileButton.textContent = 'Сохранить'
+        })
     }
-});
+})
 
 // КОПИРОВАНИЕ ДАННЫХ ИЗ ИНПУТОВ ПРОФИЛЯ
 function copyEditInput() {
