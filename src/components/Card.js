@@ -1,10 +1,13 @@
 
  export class Card {
-    constructor ( data, templateSelector, handleCardClick ) {
+    constructor (data, templateSelector, userId, handleCardClick, handleLikeClick, handleDeleteClick) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
+        this._userId = userId;
         this._handleCardClick = handleCardClick;
+        this._handleLikeClick = handleLikeClick;
+        this._handleDeleteClick = handleDeleteClick;
     };
 
     _getTemplate () {
@@ -33,14 +36,22 @@
         return this._element;
     };
 
+    setLikes() {
 
-    _deleteCard() {
-        this._element.remove();
-    };
+    }
 
-    _toggleLikeCard() {
-        this._element.querySelector('.card__like').classList.toggle('card__like_active');
-    };
+    deleteCard() {
+        
+    }
+
+
+    // _deleteCard() {
+    //     this._element.remove();
+    // };
+
+    // _toggleLikeCard() {
+    //     this._element.querySelector('.card__like').classList.toggle('card__like_active');
+    // };
 
     _handleCardClick() {
         this._handleCardClick(this._name, this._link);

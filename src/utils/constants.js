@@ -13,7 +13,8 @@ export const nameElementSelector = '.profile__name';
 export const professionElementSelector = '.profile__profession';
 export const cardTemplateSelector = '.card-template';
 export const cards = '.cards';
-export const submitProfileButton = document.querySelector('.popup__submit')
+export const submitProfileButton = document.querySelector('.popup__submit');
+export const addCardButton = document.querySelector('.popup__submit_add');
 
 export const validationConfig = {
     inputSelector: '.popup__input',

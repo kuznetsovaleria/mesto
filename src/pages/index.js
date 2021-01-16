@@ -8,7 +8,7 @@ import { UserInfo } from '../components/UserInfo.js';
 import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
-    cards, submitProfileButton } from '../utils/constants.js';
+    cards, submitProfileButton, addCardButton } from '../utils/constants.js';
 import { Api } from '../components/Api';
 
     const api = new Api({
@@ -49,7 +49,7 @@ Promise.all([
 // СОЗДАНИЕ ПРОФИЛЯ
 const userProfile = new UserInfo(nameElementSelector, professionElementSelector);
 
-// РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
+
 // const editFormPopup = new PopupWithForm({
 //     popupSelector: editPopup,
 //     handleFormSubmit: (userData) => {
@@ -58,6 +58,8 @@ const userProfile = new UserInfo(nameElementSelector, professionElementSelector)
 //     }
 // });
 
+
+// РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
 const editFormPopup = new PopupWithForm({
     popupSelector: editPopup,
     handleFormSubmit: (userData) => {
@@ -89,12 +91,34 @@ editPopupOpenButton.addEventListener('click', () => {
 });
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ С МЕСТОМ
+// const addCardPopup = new PopupWithForm({
+//     popupSelector: addPopup,
+//     handleFormSubmit:(cardData) => {
+//         const cardElement = createCard({name: cardData['place-name'], link: cardData['img-link']});
+//         cardList.prependItem(cardElement);
+//         addCardPopup.close();
+//     }
+// })
+
+// ДОБАВЛЕНИЕ КАРТОЧКИ С МЕСТОМ
 const addCardPopup = new PopupWithForm({
     popupSelector: addPopup,
-    handleFormSubmit:(cardData) => {
-        const cardElement = createCard({name: cardData['place-name'], link: cardData['img-link']});
-        cardList.prependItem(cardElement);
-        addCardPopup.close();
+    handleFormSubmit: (cardData) => {
+        addCardButton.textContent = 'Сохранение...';
+        const cardElement = {name: cardData['place-name'], link: cardData['img-link']};
+        console.log(cardElement)
+        api.addNewCard(cardElement)
+        .then((res) => {
+            console.log(res)
+            cardList.prependItem(createCard(res),true);
+            addCardPopup.close()
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .finally(() => {
+            addCardButton.textContent = 'Создать'
+        })
     }
 })
 
