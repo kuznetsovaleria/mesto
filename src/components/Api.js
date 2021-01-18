@@ -72,8 +72,34 @@ export class Api {
         })
     }
 
-    howMuchLikes() {
+    putLike(_id) {
+        return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._token,
+            },
+        })
+        .then(res => {
+            if(res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка ${res.status}`)
+        })
+    }
 
+    removeLike(_id) {
+        return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+            },
+        })
+        .then(res => {
+            if(res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка ${res.status}`)
+        })
     }
 
     deleteCard() {

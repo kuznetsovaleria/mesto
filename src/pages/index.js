@@ -8,7 +8,7 @@ import { UserInfo } from '../components/UserInfo.js';
 import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
-    cards, submitProfileButton, addCardButton } from '../utils/constants.js';
+    cards, submitProfileButton, addCardButton, myId } from '../utils/constants.js';
 import { Api } from '../components/Api';
 
     const api = new Api({
@@ -19,9 +19,39 @@ import { Api } from '../components/Api';
 
 //СОЗДАНИЕ КАРТОЧКИ
 function createCard(item) {
-    const card = new Card(item, cardTemplateSelector, () => openPhotoPopup.open(item));
+    const card = new Card(item,
+        cardTemplateSelector,
+        myId, {
+        handleCardClick:() => openPhotoPopup.open(item),
+        handleLikeClick: (cardId, isLiked) => {
+            if (isLiked) {
+                api.removeLike(cardId)
+                    .then((res) => {
+                        card.setLikes(res.likes)
+                    })
+                    .catch((err) => {
+                    console.log(err)
+                })
+            } else {
+                api.putLike(cardId)
+                    .then((res)=> {
+                        card.setLikes(res.likes)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                }
+            }
+        })
     return card.generateCard();
 }
+
+// function createCard(item) {
+//     const card = new Card(item,
+//         cardTemplateSelector,
+//         () => openPhotoPopup.open(item));
+//     return card.generateCard();
+// }
 
 //МАССИВ КАРТОЧЕК
 const cardList = new Section({
