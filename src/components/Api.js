@@ -102,12 +102,19 @@ export class Api {
         })
     }
 
-    deleteCard() {
-
-    }
-
-    handleLikeClick() {
-
+    deleteCard(_id) {
+        return fetch(`${this._baseUrl}/cards/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+            },
+        })
+        .then(res => {
+            if(res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка ${res.status}`)
+        })
     }
 
     changeUserPhoto() {

@@ -8,14 +8,17 @@ import { UserInfo } from '../components/UserInfo.js';
 import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
-    cards, submitProfileButton, addCardButton, myId } from '../utils/constants.js';
+    cards, submitProfileButton, addCardButton, myId, deleteCardPopup } from '../utils/constants.js';
 import { Api } from '../components/Api';
+import { PopupConfirm } from '../components/PopupConfirm';
 
     const api = new Api({
         baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19',
         token: '05a9c3f8-8fc7-415a-8994-abcd561520ba'
     });
 
+    // const popupConfirm = new PopupConfirm(deleteCardPopup);
+    // popupConfirm.setEventListeners();
 
 //СОЗДАНИЕ КАРТОЧКИ
 function createCard(item) {
@@ -41,10 +44,29 @@ function createCard(item) {
                         console.log(err)
                     })
                 }
+            },
+        handleDeleteClick: (cardId) => {
+            // const popupConfirm = new PopupConfirm(deleteCardPopup)
+            popupConfirm.setSubmitAction(() => {
+                api.deleteCard(cardId)
+                    .then((res) => {
+                        card.deleteCard(res);
+                        popupConfirm.close();
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                })
+                popupConfirm.open()
+                // popupConfirm.setEventListeners()
             }
         })
     return card.generateCard();
 }
+
+const popupConfirm = new PopupConfirm(deleteCardPopup);
+popupConfirm.setEventListeners();
+
 
 // function createCard(item) {
 //     const card = new Card(item,
@@ -136,10 +158,8 @@ const addCardPopup = new PopupWithForm({
     handleFormSubmit: (cardData) => {
         addCardButton.textContent = 'Сохранение...';
         const cardElement = {name: cardData['place-name'], link: cardData['img-link']};
-        console.log(cardElement)
         api.addNewCard(cardElement)
         .then((res) => {
-            console.log(res)
             cardList.prependItem(createCard(res),true);
             addCardPopup.close()
         })

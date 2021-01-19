@@ -15,7 +15,8 @@ export const cardTemplateSelector = '.card-template';
 export const cards = '.cards';
 export const submitProfileButton = document.querySelector('.popup__submit');
 export const addCardButton = document.querySelector('.popup__submit_add');
-export const myId = '9c60c2c9cbb897eafbe09158'
+export const myId = '9c60c2c9cbb897eafbe09158';
+export const deleteCardPopup = document.querySelector('.popup_delete');
 
 export const validationConfig = {
     inputSelector: '.popup__input',
