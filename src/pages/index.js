@@ -8,7 +8,8 @@ import { UserInfo } from '../components/UserInfo.js';
 import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
-    cards, submitProfileButton, addCardButton, myId, deleteCardPopup } from '../utils/constants.js';
+    cards, submitProfileButton, addCardButton, myId, deleteCardPopup, changeAvatarPopup,
+    submitUserAvatarBtn, userAvatarIcon, avatarElementSelector} from '../utils/constants.js';
 import { Api } from '../components/Api';
 import { PopupConfirm } from '../components/PopupConfirm';
 
@@ -99,7 +100,7 @@ Promise.all([
     });
 
 // СОЗДАНИЕ ПРОФИЛЯ
-const userProfile = new UserInfo(nameElementSelector, professionElementSelector);
+const userProfile = new UserInfo(nameElementSelector, professionElementSelector, avatarElementSelector);
 
 
 // const editFormPopup = new PopupWithForm({
@@ -176,6 +177,30 @@ addCardPopup.setEventListeners();
 addPopupOpenButton.addEventListener('click', () => {
     addCardPopup.open();
 });
+
+const changeAvatar = new PopupWithForm({
+    popupSelector: changeAvatarPopup,
+    handleFormSubmit: (userAvatar) => {
+        submitUserAvatarBtn.textContent = 'Сохранение...'
+        api.changeUserAvatar({link: userAvatar['avatar-link']})
+        .then((res)=> {
+           userProfile.setUserInfo(res);
+           changeAvatar.close()
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .finally(() => {
+            submitProfileButton.textContent = 'Сохранить'
+        })
+    }
+})
+
+changeAvatar.setEventListeners();
+userAvatarIcon.addEventListener('click', () => {
+    changeAvatar.open();
+});
+
 
 
 // ОТКРЫТИЕ ПОПАПА С ФОТОГРАФИЕЙ МЕСТА

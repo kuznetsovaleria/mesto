@@ -14,7 +14,11 @@
         <main class="content">
 
             <section class="profile page__profile">
-                    <img src="<%=require('./images/сousteau.jpg')%>"" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <!-- <div class="profile__avatar">
+
+                    </div> -->
+                    <!-- <img src="images/avatar-loading.gif" -->
+                    <img src="<%=require('./images/avatar-loading.gif')%>" alt="Жак-Ив Кусто" class="profile__avatar">
                     <div class="profile__info">
                         <h1 class="profile__name"></h1>
                         <button class="profile__edit-button" aria-label="Открыть"></button>
@@ -112,6 +116,27 @@
                 <h3 class="popup__title">Вы уверены?</h3>
                 <button type="submit" class="popup__submit popup__submit_delete">Да</button>
             </form>
+            </div>
+        </section>
+
+        <section class="popup popup_change-avatar">
+            <div class="popup__container">
+                <form class="popup__form">
+                    <button class="popup__close" aria-label="Закрыть">
+                        <img src="<%=require('./images/close-icon.svg')%>"" alt="Закрыть" class="popup__icon">
+                    </button>
+                    <h3 class="popup__title">Обновить аватар</h3>
+                    <input
+                      id="link-input-avatar"
+                      type="url"
+                      name="avatar-link"
+                      placeholder="Ссылка на аватар"
+                      class="popup__input popup__input_link"
+                      required>                     
+                  <span id="link-input-error" class="error"></span>
+                  <button type="submit" class="popup__submit popup__submit_avatar">Сохранить</button>
+                    <span id="place-input-error" class="error"></span>
+                </form>
             </div>
         </section>
 
