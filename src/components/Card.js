@@ -92,39 +92,21 @@
         this._element.remove()
     }
 
-    // _deleteCard() {
-    //     this._element.remove();
-    // };
-
-    // _toggleLikeCard() {
-    //     this._element.querySelector('.card__like').classList.toggle('card__like_active');
-    // };
-
     _handleCardClick() {
         this._handleCardClick(this._name, this._link);
     }
 
     _setEventListeners() {
-
-        // this._element.querySelector('.card__delete').addEventListener('click', () => {
-        //     this._deleteCard();
-        // });
-
-        // this._element.querySelector('.card__like').addEventListener('click', () => {
-        //     this._toggleLikeCard();
-        // });
-
         this._photo.addEventListener('click', () => {
-            this._handleCardClick()
+            this._handleCardClick();
         })
 
         this._element.querySelector('.card__like').addEventListener('click', () => {
-            this._handleLikeClick(this._cardId, this._isLiked())
+            this._handleLikeClick(this._cardId, this._isLiked());
         })
 
         this._element.querySelector('.card__delete').addEventListener('click', () => {
-            
-            this._handleDeleteClick(this._cardId)
+            this._handleDeleteClick(this._cardId);
         })
 
     };

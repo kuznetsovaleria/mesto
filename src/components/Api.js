@@ -135,8 +135,4 @@ export class Api {
             return Promise.reject(`Ошибка ${res.status}`)
         })
     }
-
-
-
-
-}
+};

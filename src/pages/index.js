@@ -9,7 +9,7 @@ import { editPopup, editPopupOpenButton, editPopupForm,
     nameInput, professionInput, nameElementSelector, professionElementSelector, addPopup,
     addPopupOpenButton, addPopupSaveButton, photoPopup, validationConfig, cardTemplateSelector,
     cards, submitProfileButton, addCardButton, myId, deleteCardPopup, changeAvatarPopup,
-    submitUserAvatarBtn, userAvatarIcon, avatarElementSelector} from '../utils/constants.js';
+    submitUserAvatarBtn, userAvatarIcon, avatarElementSelector, changeAvatarSubmitBtn} from '../utils/constants.js';
 import { Api } from '../components/Api';
 import { PopupConfirm } from '../components/PopupConfirm';
 
@@ -18,16 +18,16 @@ import { PopupConfirm } from '../components/PopupConfirm';
         token: '05a9c3f8-8fc7-415a-8994-abcd561520ba'
     });
 
-    // const popupConfirm = new PopupConfirm(deleteCardPopup);
-    // popupConfirm.setEventListeners();
+// СОЗДАНИЕ ПРОФИЛЯ
+const userProfile = new UserInfo(nameElementSelector, professionElementSelector, avatarElementSelector);
 
 //СОЗДАНИЕ КАРТОЧКИ
 function createCard(item) {
     const card = new Card(item,
         cardTemplateSelector,
         myId, {
-        handleCardClick:() => openPhotoPopup.open(item),
-        handleLikeClick: (cardId, isLiked) => {
+        handleCardClick:() => openPhotoPopup.open(item), // ОТКРЫТИЕ ПОПАПА С ФОТО МЕСТА
+        handleLikeClick: (cardId, isLiked) => { // ПОСТАВИТЬ/УБРАТЬ ЛАЙК С КАРТОЧКИ
             if (isLiked) {
                 api.removeLike(cardId)
                     .then((res) => {
@@ -46,8 +46,7 @@ function createCard(item) {
                     })
                 }
             },
-        handleDeleteClick: (cardId) => {
-            // const popupConfirm = new PopupConfirm(deleteCardPopup)
+        handleDeleteClick: (cardId) => { //УДАЛИТЬ КАРТОЧКУ
             popupConfirm.setSubmitAction(() => {
                 api.deleteCard(cardId)
                     .then((res) => {
@@ -58,23 +57,17 @@ function createCard(item) {
                         console.log(err)
                     })
                 })
-                popupConfirm.open()
-                // popupConfirm.setEventListeners()
+                popupConfirm.open();
             }
         })
     return card.generateCard();
 }
 
+
+//ПОПАП ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ КАРТОЧКИ
 const popupConfirm = new PopupConfirm(deleteCardPopup);
 popupConfirm.setEventListeners();
 
-
-// function createCard(item) {
-//     const card = new Card(item,
-//         cardTemplateSelector,
-//         () => openPhotoPopup.open(item));
-//     return card.generateCard();
-// }
 
 //МАССИВ КАРТОЧЕК
 const cardList = new Section({
@@ -97,22 +90,10 @@ Promise.all([
     })
     .catch((err) => {
         console.log(err)
-    });
-
-// СОЗДАНИЕ ПРОФИЛЯ
-const userProfile = new UserInfo(nameElementSelector, professionElementSelector, avatarElementSelector);
+});
 
 
-// const editFormPopup = new PopupWithForm({
-//     popupSelector: editPopup,
-//     handleFormSubmit: (userData) => {
-//         userProfile.setUserInfo({name: userData['edit-name'], profession: userData['edit-profession']});
-//         editFormPopup.close();
-//     }
-// });
-
-
-// РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
+// РЕДАКТИРОВАНИЯ ПРОФИЛЯ (ИМЯ, ОПИСАНИЕ)
 const editFormPopup = new PopupWithForm({
     popupSelector: editPopup,
     handleFormSubmit: (userData) => {
@@ -129,29 +110,44 @@ const editFormPopup = new PopupWithForm({
             submitProfileButton.textContent = 'Сохранить'
         })
     }
-})
+});
+
 
 // КОПИРОВАНИЕ ДАННЫХ ИЗ ИНПУТОВ ПРОФИЛЯ
 function copyEditInput() {
     nameInput.value = userProfile.getUserInfo().name;
     professionInput.value = userProfile.getUserInfo().profession;
 };
-
 editFormPopup.setEventListeners();
 editPopupOpenButton.addEventListener('click', () => {
     copyEditInput();
     editFormPopup.open();
 });
 
-// ДОБАВЛЕНИЕ КАРТОЧКИ С МЕСТОМ
-// const addCardPopup = new PopupWithForm({
-//     popupSelector: addPopup,
-//     handleFormSubmit:(cardData) => {
-//         const cardElement = createCard({name: cardData['place-name'], link: cardData['img-link']});
-//         cardList.prependItem(cardElement);
-//         addCardPopup.close();
-//     }
-// })
+
+//СМЕНА АВАТАРА
+const changeAvatar = new PopupWithForm({
+    popupSelector: changeAvatarPopup,
+    handleFormSubmit: (userAvatar) => {
+        submitUserAvatarBtn.textContent = 'Сохранение...'
+        api.changeUserAvatar({link: userAvatar['avatar-link']})
+        .then((res)=> {
+           userProfile.setUserInfo(res);
+           changeAvatar.close()
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .finally(() => {
+            submitUserAvatarBtn.textContent = 'Сохранить'
+        })
+    }
+});
+changeAvatar.setEventListeners();
+userAvatarIcon.addEventListener('click', () => {
+    changeAvatar.open();
+});
+
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ С МЕСТОМ
 const addCardPopup = new PopupWithForm({
@@ -171,39 +167,14 @@ const addCardPopup = new PopupWithForm({
             addCardButton.textContent = 'Создать'
         })
     }
-})
-
+});
 addCardPopup.setEventListeners();
 addPopupOpenButton.addEventListener('click', () => {
     addCardPopup.open();
 });
 
-const changeAvatar = new PopupWithForm({
-    popupSelector: changeAvatarPopup,
-    handleFormSubmit: (userAvatar) => {
-        submitUserAvatarBtn.textContent = 'Сохранение...'
-        api.changeUserAvatar({link: userAvatar['avatar-link']})
-        .then((res)=> {
-           userProfile.setUserInfo(res);
-           changeAvatar.close()
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-        .finally(() => {
-            submitProfileButton.textContent = 'Сохранить'
-        })
-    }
-})
 
-changeAvatar.setEventListeners();
-userAvatarIcon.addEventListener('click', () => {
-    changeAvatar.open();
-});
-
-
-
-// ОТКРЫТИЕ ПОПАПА С ФОТОГРАФИЕЙ МЕСТА
+//ПОПАП С ФОТОГРАФИЕЙ МЕСТА
 const openPhotoPopup = new PopupWithPhoto(photoPopup);
 openPhotoPopup.setEventListeners();
 
@@ -214,6 +185,10 @@ editFormValidator.enableValidation();
 // ВАЛИДАЦИЯ ФОРМЫ ДОБАВЛЕНИЯ КАРТОЧКИ
 const addFormFalidator = new FormValidator(validationConfig, addPopupSaveButton);
 addFormFalidator.enableValidation();
+
+// ВАЛИДАЦИЯ ФОРМЫ СМЕНЫ АВАТАРА
+const avatarFormValidator = new FormValidator(validationConfig, changeAvatarSubmitBtn);
+avatarFormValidator.enableValidation();
 
 
 

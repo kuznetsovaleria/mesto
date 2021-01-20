@@ -17,9 +17,3 @@ export class PopupConfirm extends Popup {
         })
     }
 }
-
-//     setEventListeners() {
-//         super.setEventListeners();
-//         this._popupSelector.querySelector('.popup__form').addEventListener('click', setSubmitAction());
-//     }
-// }
