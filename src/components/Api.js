@@ -2,7 +2,14 @@ export class Api {
     constructor({baseUrl, token}) {
         this._baseUrl = baseUrl;
         this._token = token;
-    }
+}
+
+    _handleOriginalResponse(res) {
+            if(res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка ${res.status}`);
+}
 
     getUserData() {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -10,13 +17,8 @@ export class Api {
                 authorization: this._token
             }
         })
-            .then(res => {
-                if(res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`)
-            })
-    }
+        .then(this._handleOriginalResponse)
+}
 
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
@@ -24,13 +26,9 @@ export class Api {
                 authorization: this._token
             }
         })
-            .then(res => {
-                if(res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`)
-            })
-    }
+            .then(this._handleOriginalResponse)
+}
+
 
     editUserInfo(data) {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -50,7 +48,7 @@ export class Api {
             }
             return Promise.reject(`Ошибка ${res.status}`)
         })
-    }
+}
 
     addNewCard(data) {
         return fetch(`${this._baseUrl}/cards`, {
@@ -70,7 +68,7 @@ export class Api {
             }
             return Promise.reject(`Ошибка ${res.status}`)
         })
-    }
+}
 
     putLike(_id) {
         return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
@@ -85,7 +83,7 @@ export class Api {
             }
             return Promise.reject(`Ошибка ${res.status}`)
         })
-    }
+}
 
     removeLike(_id) {
         return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
@@ -100,7 +98,7 @@ export class Api {
             }
             return Promise.reject(`Ошибка ${res.status}`)
         })
-    }
+}
 
     deleteCard(_id) {
         return fetch(`${this._baseUrl}/cards/${_id}`, {
@@ -115,7 +113,7 @@ export class Api {
             }
             return Promise.reject(`Ошибка ${res.status}`)
         })
-    }
+}
 
     changeUserAvatar(data) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -135,4 +133,4 @@ export class Api {
             return Promise.reject(`Ошибка ${res.status}`)
         })
     }
-};
+}
